@@ -2,5 +2,14 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 yarn run lint-staged
+
+staged=$(git diff --cached --name-only)
+if echo "$staged" | grep -qE '^(src/resources/dictionary\.ts|public/dicts/)'; then
+  node .gitconfig/copilot/tools/check-dict-registry.mjs || exit 1
+fi
+if echo "$staged" | grep -qE '^(\.github/(copilot-instructions\.md|agents/|instructions/)|\.gitconfig/copilot/|CLAUDE\.md)'; then
+  bash .gitconfig/copilot/validate-config.sh --check || exit 1
+fi
+
 yarn run eslint . --fix
 yarn run prettier --write .
