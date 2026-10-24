@@ -4,10 +4,10 @@
 #   cd ~/qwerty-learner && bash scripts/deploy/deploy.sh [--setup-nginx <domain_or_ip>]
 # Each run: git pull -> yarn install -> yarn build -> atomically publish to $WEBROOT/current.
 # --setup-nginx writes /etc/nginx/conf.d/qwerty-learner.conf (needs root); only needed once.
-# Env overrides: BRANCH (default main), WEBROOT (default /var/www/qwerty-learner).
+# Env overrides: BRANCH (default master), WEBROOT (default /var/www/qwerty-learner).
 set -euo pipefail
 
-BRANCH="${BRANCH:-main}"
+BRANCH="${BRANCH:-master}"
 WEBROOT="${WEBROOT:-/var/www/qwerty-learner}"
 REGISTRY=https://registry.npmmirror.com
 cd "$(git rev-parse --show-toplevel)"
